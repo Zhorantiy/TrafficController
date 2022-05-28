@@ -82,11 +82,11 @@ public class Car : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        a_s = acce_state.Break;
         StartCoroutine(Crash());
-        
 
         
+
     }
 
     IEnumerator Crash()
@@ -96,7 +96,7 @@ public class Car : MonoBehaviour
         yield return new WaitForSeconds(audioManager.GetLength());
 
         //Debug.Log("Столконвение!" + car_speed);
-        a_s = acce_state.Break;
+        
         Game.is_game = false;
         //car_speed = 0;
     }

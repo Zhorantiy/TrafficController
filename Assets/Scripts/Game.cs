@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    public static int NumberOfLevel;
+    public static int NumberOfLevel = 1;
 
     public GameObject pref;
 
@@ -100,7 +100,7 @@ public class Game : MonoBehaviour
         {
             int start_number = Random.Range(0, level.start_pos.Count);
 
-            Vector3 start_position = level.start_pos[start_number];
+            Vector3 start_position = level.start_pos[start_number].transform.position;
             Vector3 start_rotate = level.start_rotate[start_number];
             //Vector3 start_position = level.start_pos[1];
             //Vector3 start_rotate = level.start_rotate[1];
@@ -139,7 +139,7 @@ public class Level
 {
     public List<GameObject> crossroad;
     public List<bool> is_green;
-    public List<Vector3> start_pos;
+    public List<GameObject> start_pos;
     public List<Vector3> start_rotate;
     public int count_cars;
     public float timer;
