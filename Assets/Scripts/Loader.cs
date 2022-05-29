@@ -7,13 +7,13 @@ public class Loader : MonoBehaviour
 {
     public enum Scene
     {
+        MainMenu,
         Level1,
         Level2,
         Level3,
-        Level4,
-        Level5,
-        MainMenu,
-        Loading,
+        //Level4,
+        //Level5,
+        //Loading,
         GameOver,
     }
 
@@ -22,8 +22,8 @@ public class Loader : MonoBehaviour
         Scene.Level1,
         Scene.Level2,
         Scene.Level3,
-        Scene.Level4,
-        Scene.Level5
+        //Scene.Level4,
+        //Scene.Level5
     };
 
     /*public void Start()
@@ -35,7 +35,7 @@ public class Loader : MonoBehaviour
     public static void Load(Scene scene)
     {
         //SceneManager.LoadScene(Scene.Loading.ToString());
-        Debug.Log("Loading - " + scene.ToString());
+        //Debug.Log("Loading - " + scene.ToString());
         SceneManager.LoadScene(scene.ToString());
     }
 }

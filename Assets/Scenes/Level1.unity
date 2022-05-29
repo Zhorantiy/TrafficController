@@ -4985,8 +4985,8 @@ MonoBehaviour:
     timer: 60
     car_norm_speed:
     - 2
-    - 2
     - 3
+    - 2
     - 3
   cars: []
   text_score: {fileID: 56660693}
@@ -5939,7 +5939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2093095411
 RectTransform:
   m_ObjectHideFlags: 0

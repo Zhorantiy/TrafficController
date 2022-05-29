@@ -14,32 +14,40 @@ public class GameOver : MonoBehaviour
     public Text succes_text;
 
     public Text[] winners_text = new Text[5];
-    public static int[,] winners_score = new int[5, 5];
+    public List<List<int>> winners_score = new List<List<int>>();
 
     public int lvl;
+    public int rank;
 
     string filePath;
 
     public void Start()
     {
         filePath = Application.persistentDataPath + "/save.gamesave";
+        //File.Delete(filePath);
+
+        for (int i = 0; i < 3; i++)
+        {
+            winners_score.Add(new List<int>());
+        }
 
         LoadGame();
 
-        lvl = Game.NumberOfLevel;
+        lvl = Game.NumberOfLevel - 1;
+        rank = 0;
+
         if (succes)
         {
-            SuccesText("Game over - You win!", new Color(0, 255, 0, 255));
-            CheckLeaders((int) (Game.time));
+            CheckLeaders((int)(Game.time));
+            SuccesText("You won!", new Color(0, 255, 0, 255), rank.ToString());
         }
         else
         {
-            SuccesText("Game over - You Lose!", new Color(255, 0, 0, 255));
-            UpdateText();
+            SuccesText("Game over - You Lost!", new Color(255, 0, 0, 255));
         }
     }
 
-    public void SaveGame(int[,] lb)
+    public void SaveGame(List<List<int>> lb)
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = new FileStream(filePath, FileMode.Create);
@@ -70,40 +78,32 @@ public class GameOver : MonoBehaviour
 
     private void CheckLeaders(int score)
     {
-        for (int i_score = 0; i_score < 5; i_score++)
+        winners_score[lvl].Add(score);
+        int i = winners_score[lvl].Count - 1;
+        //Debug.Log(winners_score[lvl].Count - 1);
+        while (i > 0)
         {
-            if (winners_score[i_score, lvl] == 0)
+            if (winners_score[lvl][i] < winners_score[lvl][i - 1])
             {
-                winners_score[i_score, lvl] = score;
+                int temp = winners_score[lvl][i];
+                winners_score[lvl][i] = winners_score[lvl][i - 1];
+                winners_score[lvl][i - 1] = temp;
+            } else
+            {
                 break;
             }
-            if (score < winners_score[i_score, lvl])
-            {
-                for (int j = 4; j > i_score; j--)
-                {
-                    winners_score[j, lvl] = winners_score[j - 1, lvl];
-                }
-                winners_score[i_score, lvl] = score;
-                break;
-            }
+            i--;
         }
+        rank = i + 1;
         SaveGame(winners_score);
         UpdateText();
     }
 
     public void UpdateText()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < Math.Min(winners_score[lvl].Count, 5); i++)
         {
-            if (winners_score[i, lvl] == 0)
-            {
-                winners_text[i].text = "#" + (i + 1) + " -";
-            }
-            else
-            {
-                winners_text[i].text = "#" + (i + 1) + " = " + winners_score[i, lvl];
-            }
-            
+            winners_text[i].text = "#" + (i + 1) + " = " + winners_score[lvl][i] + " seconds";
         }
     }
 
@@ -113,6 +113,7 @@ public class GameOver : MonoBehaviour
 
         Debug.Log(Game.NumberOfLevel);
         Loader.Load(Loader.scenes[Game.NumberOfLevel - 1]);
+
         /*switch (Game.NumberOfLevel)
         {
             case  1:
@@ -143,9 +144,16 @@ public class GameOver : MonoBehaviour
         Loader.Load(Loader.Scene.MainMenu);
     }
 
-    public void SuccesText(string text, Color color)
+    public void SuccesText(string text, Color color, string rank = "")
     {
-        succes_text.text = text;
+        if (rank != "")
+        {
+            succes_text.text = text + " Your rank - " + rank;
+        } else
+        {
+            succes_text.text = text + rank;
+        }
+        
         succes_text.color = color;
     }
 }
@@ -154,5 +162,5 @@ public class GameOver : MonoBehaviour
 
 public class Save
 {
-    public int[,] leader_board = new int[5, 5];
+    public List<List<int>> leader_board = new List<List<int>>();
 }

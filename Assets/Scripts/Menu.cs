@@ -18,7 +18,7 @@ public class Menu : MonoBehaviour
         yield return new WaitForSeconds(audioManager.GetLength());
 
         Game.NumberOfLevel = id;
-        Debug.Log("id: " + id);
+        //Debug.Log("id: " + id);
         Loader.Load(Loader.scenes[id - 1]); // загрузка сцены
     }
 }

@@ -6,11 +6,11 @@ public class RelativePosition : MonoBehaviour
 {
     void Start()
     {
-        Debug.Log(Screen.currentResolution);
+        //Debug.Log(Screen.currentResolution);
     }
 
     private void Update()
     {
-        Debug.Log(Screen.currentResolution);
+        //Debug.Log(Screen.currentResolution);
     }
 }

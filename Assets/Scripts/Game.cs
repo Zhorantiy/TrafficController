@@ -28,7 +28,7 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Start" + NumberOfLevel);
+        //Debug.Log("Start" + NumberOfLevel);
         is_game = true;
         time = level.timer;
         score = 0;
@@ -74,7 +74,7 @@ public class Game : MonoBehaviour
     public void EndGame(bool succes)
     {
         is_game = false;
-        Debug.Log("Game Over!");
+        //Debug.Log("Game Over!");
         time = level.timer - time;
         GameOver.succes = succes;
         Loader.Load(Loader.Scene.GameOver);
